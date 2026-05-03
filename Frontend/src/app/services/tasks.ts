@@ -30,4 +30,10 @@ updateTask(id: number, tareaEditada: any): Observable<any> {
   return this.http.put(`http://localhost:3000/tasks/${id}`,tareaEditada, { headers })
 }
 
+deleteTask(id: number): Observable<any> {
+  const token = localStorage.getItem('token_sesion');
+  const headers = new HttpHeaders().set('Authorization', `${token}`);
+  return this.http.delete(`http://localhost:3000/tasks/${id}`, { headers });
+}
+
 }

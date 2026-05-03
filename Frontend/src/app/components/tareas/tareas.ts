@@ -95,4 +95,26 @@ export class Tareas implements OnInit{
     return tarea.idTarea;
   }
 
+  logout() {
+    // Limpiamos el token y redirigimos al login
+    localStorage.removeItem('token_sesion');
+    this.listaTareas = [];
+    this.router.navigate(['/login']);
+  }
+
+  eliminarTarea(tarea: any) {
+    if (!confirm('¿Eliminar esta tarea?')) return;
+    this.tasksService.deleteTask(tarea.idTarea).subscribe({
+      next: (res) => {
+        // Eliminamos de la lista local
+        this.listaTareas = this.listaTareas.filter(t => t.idTarea !== tarea.idTarea);
+        try { this.cdr.detectChanges(); } catch (e) { /* ignore */ }
+      },
+      error: (err) => {
+        console.error('Error al eliminar la tarea', err);
+        alert('No se pudo eliminar la tarea');
+      }
+    });
+  }
+
 }

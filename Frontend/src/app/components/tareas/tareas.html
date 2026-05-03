@@ -1,7 +1,10 @@
 <div class="tareas-container">
   
   <h2>Mis Tareas</h2>
-  
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
+    <div></div>
+    <button (click)="logout()" style="background:#e74c3c;color:#fff;border:none;padding:0.5rem 0.75rem;border-radius:6px;cursor:pointer">Cerrar sesión</button>
+  </div>
 
   <form class="formulario-tarea" [formGroup]="formularioTarea" (ngSubmit)="agregarTarea()">
     <div class="form-group">
@@ -28,10 +31,13 @@
         </strong>
         <p>{{ tarea.descripcion }}</p>
       </div>
-      <input
-        type="checkbox"
-        [checked]="tarea.completado"
-        (change)="cambiarEstado(tarea)" />
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <input
+          type="checkbox"
+          [checked]="tarea.completado"
+          (change)="cambiarEstado(tarea)" />
+        <button (click)="eliminarTarea(tarea)" style="background:transparent;border:1px solid #e74c3c;color:#e74c3c;padding:0.25rem 0.5rem;border-radius:6px;cursor:pointer">Eliminar</button>
+      </div>
     </li>
     <p *ngIf="listaTareas.length === 0" style="text-align: center; color: #888;">No tienes tareas pendientes. ¡A descansar! 🌴</p>
 
