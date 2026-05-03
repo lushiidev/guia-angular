@@ -1,0 +1,40 @@
+<div class="tareas-container">
+  
+  <h2>Mis Tareas</h2>
+
+  <form class="formulario-tarea" [formGroup]="formularioTarea" (ngSubmit)="agregarTarea()">
+    <div class="form-group">
+      <label for="nombreTarea">Nombre de la tarea</label>
+      <input type="text" id="nombreTarea" formControlName="nombreTarea" placeholder="Ej. Comprar leche">
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <input type="text" id="descripcion" formControlName="descripcion" placeholder="Ej. Ir al súper por la tarde">
+    </div>
+
+    <button type="submit" class="btn-agregar">
+      Agregar Tarea
+    </button>
+  </form>
+
+  <h3>Pendientes</h3>
+  <ul class="lista-tareas">
+    
+    @for (tarea of listaTareas; track tarea.idTarea) {
+      <li class="tarea-item">
+        <div class="tarea-info">
+          <strong [class.completada]="tarea.completado">
+            {{ tarea.nombreTarea }}
+          </strong>
+          <p>{{ tarea.descripcion }}</p>
+        </div>
+        
+        <input type="checkbox" [checked]="tarea.completado">
+      </li>
+    } @empty {
+      <p style="text-align: center; color: #888;">No tienes tareas pendientes. ¡A descansar! 🌴</p>
+    }
+
+  </ul>
+</div>
