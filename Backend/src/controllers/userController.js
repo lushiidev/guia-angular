@@ -39,9 +39,10 @@ export const getObtenerPorNombre = async (req, res, next) => {
 
 export const postCrearUsuario = async(req,res, next) =>{
     try{
-        const {nombre, email, contrasenia } = req.body;
-        
-        const newUser = await userService.postCrearUsuario(nombre, email, contrasenia);
+        const {nombre, email, contrasenia, password } = req.body;
+        const pass = contrasenia || password;
+
+        const newUser = await userService.postCrearUsuario(nombre, email, pass);
 
         res.json(newUser)
     } catch (err) {
@@ -81,7 +82,8 @@ export const deleteUser = async(req, res, next) => {
 export const login = async (req, res, next) => {
     try {
         // 1. Recibimos los datos del formulario de Angular
-        const { email, contrasenia } = req.body;
+        const { email, contrasenia, password } = req.body;
+        const pass = contrasenia || password;
 
         // 2. Buscamos al usuario en la base de datos
         const usuarios = await userService.getUserByEmail(email);
@@ -93,7 +95,7 @@ export const login = async (req, res, next) => {
         const usuario = usuarios[0]; // Extraemos el primer usuario encontrado
 
         // 3. Comparamos las contraseñas
-        const contraseniaValida = bcrypt.compareSync(contrasenia, usuario.contrasenia);
+        const contraseniaValida = bcrypt.compareSync(pass, usuario.contrasenia);
 
         // 4. Si la contraseña es inválida, regresamos un error
         if (!contraseniaValida) {

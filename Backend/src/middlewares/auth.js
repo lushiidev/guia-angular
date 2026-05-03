@@ -13,7 +13,7 @@ export const verificarToken = (req, res, next) => {
         const decodificado = jwt.verify(token, process.env.MY_SECRET);
         
         // 3. ¡El secreto revelado! Guardamos el ID en la petición
-        req.usuarioId = decodificado.id_usuario; 
+        req.usuarioId = decodificado.idusuario; 
         
         // 4. Le damos permiso de pasar al controlador
         next(); 

@@ -4,19 +4,32 @@ export const getTasks = async (idusuario) => {
 
     const result = await pool.query('SELECT * FROM tareas WHERE idusuario=$1', [idusuario]);
 
-    return result.rows;
+    // Convertir a camelCase
+    return result.rows.map(t => ({
+        idTarea: t.idtarea,
+        nombreTarea: t.nombretarea,
+        descripcion: t.descripcion,
+        completado: t.completado
+    }));
 };
 
 
 export const postCrearTasks = async (idusuario,nombretarea, descripcion, completado) => {
 
         const query = `INSERT INTO tareas
-                (idusuario,nombretarea, descripcion, completado)
-                VALUES ($1, $2, $3,$4) RETURNING *;`
+                (idusuario, nombretarea, descripcion, completado)
+                VALUES ($1, $2, $3, $4) RETURNING *;`
 
-        const result = await pool.query(query, [idusuario, nombretarea, descripcion,completado]);
+        const result = await pool.query(query, [idusuario, nombretarea, descripcion, completado]);
 
-        return result.rows[0];
+        const tarea = result.rows[0];
+        // Convertir a camelCase para el frontend
+        return {
+            idTarea: tarea.idtarea,
+            nombreTarea: tarea.nombretarea,
+            descripcion: tarea.descripcion,
+            completado: tarea.completado
+        };
 }
 
 export const actualizarTarea = async (tarea) => {
@@ -27,7 +40,13 @@ export const actualizarTarea = async (tarea) => {
 
         const result = await pool.query(query, tarea);
         // Solo retornamos la primera fila (el usuario actualizado)
-        return result.rows[0]; 
+        const t = result.rows[0];
+        return {
+            idTarea: t.idtarea,
+            nombreTarea: t.nombretarea,
+            descripcion: t.descripcion,
+            completado: t.completado
+        };
 };
 
 export const eliminarTarea = async (idtarea) => {
@@ -35,11 +54,11 @@ export const eliminarTarea = async (idtarea) => {
         const tareaAEliminar = await pool.query('SELECT * FROM tareas WHERE idtarea=$1', [idtarea]);
 
         // Si no existe, lanzamos un error
-        if (tareaAEliminar.rowCount === 0) throw new Error('Usuario no encontrado');
+        if (tareaAEliminar.rowCount === 0) throw new Error('Tarea no encontrada');
 
         // Si existe, ejecutamos la sentencia DELETE
         const result = await pool.query('DELETE FROM tareas WHERE idtarea=$1', [idtarea]);
 
         // Confirmamos la eliminación
-        return { message: 'Tarea eliminado correctamente', tarea: tareaAEliminar.rows[0] };
+        return { message: 'Tarea eliminada correctamente', tarea: tareaAEliminar.rows[0] };
 };

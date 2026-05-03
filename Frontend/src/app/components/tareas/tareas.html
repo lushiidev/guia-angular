@@ -1,6 +1,7 @@
 <div class="tareas-container">
   
   <h2>Mis Tareas</h2>
+  
 
   <form class="formulario-tarea" [formGroup]="formularioTarea" (ngSubmit)="agregarTarea()">
     <div class="form-group">
@@ -20,21 +21,19 @@
 
   <h3>Pendientes</h3>
   <ul class="lista-tareas">
-    
-    @for (tarea of listaTareas; track tarea.idTarea) {
-      <li class="tarea-item">
-        <div class="tarea-info">
-          <strong [class.completada]="tarea.completado">
-            {{ tarea.nombreTarea }}
-          </strong>
-          <p>{{ tarea.descripcion }}</p>
-        </div>
-        
-        <input type="checkbox" [checked]="tarea.completado">
-      </li>
-    } @empty {
-      <p style="text-align: center; color: #888;">No tienes tareas pendientes. ¡A descansar! 🌴</p>
-    }
+    <li *ngFor="let tarea of listaTareas; trackBy: trackById" class="tarea-item">
+      <div class="tarea-info">
+        <strong [class.completada]="tarea.completado">
+          {{ tarea.nombreTarea }}
+        </strong>
+        <p>{{ tarea.descripcion }}</p>
+      </div>
+      <input
+        type="checkbox"
+        [checked]="tarea.completado"
+        (change)="cambiarEstado(tarea)" />
+    </li>
+    <p *ngIf="listaTareas.length === 0" style="text-align: center; color: #888;">No tienes tareas pendientes. ¡A descansar! 🌴</p>
 
-  </ul>
+</ul>
 </div>
