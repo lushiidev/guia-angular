@@ -1,0 +1,11 @@
+{
+  "name": "guia-angular-deploy",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm install --prefix Backend",
+    "start": "npm --prefix Backend start",
+    "dev": "npm --prefix Backend run dev",
+    "test": "npm --prefix Backend test"
+  }
+}
