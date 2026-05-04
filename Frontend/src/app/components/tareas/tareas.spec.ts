@@ -10,6 +10,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Tareas } from './tareas';
 import { Tasks } from '../../services/tasks';
 import { provideRouter } from '@angular/router';
+import { routes } from '../../app.routes';
 import { of } from 'rxjs';
 
 describe('Tareas Component - Pruebas Unitarias', () => {
@@ -25,7 +26,7 @@ describe('Tareas Component - Pruebas Unitarias', () => {
         CommonModule,
         HttpClientTestingModule
       ],
-      providers: [provideRouter([])]
+      providers: [provideRouter(routes)]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Tareas);

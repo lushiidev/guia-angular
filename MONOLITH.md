@@ -20,7 +20,7 @@ npm run build
 ```
 
 Esto:
-1. Compila Angular → `Frontend/dist/todo-list-angular/`
+1. Compila Angular → `Frontend/dist/TodoListAngular/`
 2. Instala dependencias del Backend
 
 ## Deployment en Render
@@ -73,7 +73,7 @@ Backend/src/
                         - /* (archivos de Angular compilados)
 
 Frontend/dist/
-  └─ todo-list-angular/ ← Build compilado de Angular
+  └─ TodoListAngular/ ← Build compilado de Angular
 ```
 
 ## Troubleshooting
@@ -82,7 +82,7 @@ Frontend/dist/
 - Asegúrate de que `postinstall` en `package.json` instale ambas carpetas.
 
 **Angular no carga?**
-- Verifica que `Frontend/dist/todo-list-angular/index.html` exista localmente.
+- Verifica que `Frontend/dist/TodoListAngular/index.html` exista localmente.
 - Ejecuta: `npm run build` y revisa la carpeta.
 
 **Puerto 3000 en uso?**

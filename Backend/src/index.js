@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json()); 
 
 // Servir archivos estáticos del frontend compilado
-const frontendPath = path.join(__dirname, '../../Frontend/dist/todo-list-angular');
+const frontendPath = path.join(__dirname, '../../Frontend/dist/TodoListAngular');
 app.use(express.static(frontendPath));
 
 // API routes
