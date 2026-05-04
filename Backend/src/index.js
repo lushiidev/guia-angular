@@ -9,7 +9,12 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:4200';
+
+app.use(cors({
+  origin: frontendUrl,
+  credentials: true
+}));
 app.use(express.json()); 
 
 
@@ -22,6 +27,8 @@ app.use('/users', userRouter)
 app.use('/tasks', tasksRouter)
 
 // Encendemos el servidor
-app.listen(process.env.PORT || 3000, () => {
-    console.log(`Servidor corriendo en http://localhost:${process.env.PORT || 3000}`)
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`)
 })
