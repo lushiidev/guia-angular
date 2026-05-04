@@ -3,6 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
+declare global {
+  interface Window {
+    __env?: {
+      apiUrl?: string;
+    };
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -10,7 +18,7 @@ export class Tasks {
 
   constructor(private http: HttpClient) {}
 
-  private readonly apiUrl = environment.apiUrl;
+  private readonly apiUrl = window.__env?.apiUrl || environment.apiUrl;
   
   getTasks(): Observable<any> {
   const token = localStorage.getItem('token_sesion');

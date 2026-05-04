@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 // import { actualizarUsuario, getAllUsers, getBuscarNombre, getUserByEmail, postCrearUsuario, eliminarUsuario} from '../services/usersServices.js';
 
-import * as userController from '../Controllers/userController.js';
+import * as userController from '../controllers/userController.js';
 // import { createUserValidators, deleteUsuario,runValidations } from '../Middlewares/validator.js';
 
 const router = Router();
