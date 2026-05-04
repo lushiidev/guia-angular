@@ -49,7 +49,7 @@ DB_PORT=5432
 DB_USER=tu_usuario
 DB_PASSWORD=tu_contraseña
 DB_NAME=tu_base_datos
-JWT_SECRET=tu_secret_jwt
+MY_SECRET=tu_secret_jwt
 ```
 
 ### 4. Déployea
@@ -73,16 +73,16 @@ Backend/src/
                         - /* (archivos de Angular compilados)
 
 Frontend/dist/
-  └─ TodoListAngular/ ← Build compilado de Angular
+  └─ TodoListAngular/browser/ ← Build compilado de Angular
 ```
 
 ## Troubleshooting
 
 **"Cannot find module"** en Render?
-- Asegúrate de que `postinstall` en `package.json` instale ambas carpetas.
+- Asegúrate de que `postinstall` en `package.json` haga una instalación limpia con `npm ci` en ambas carpetas.
 
 **Angular no carga?**
-- Verifica que `Frontend/dist/TodoListAngular/index.html` exista localmente.
+- Verifica que `Frontend/dist/TodoListAngular/browser/index.html` exista localmente.
 - Ejecuta: `npm run build` y revisa la carpeta.
 
 **Puerto 3000 en uso?**

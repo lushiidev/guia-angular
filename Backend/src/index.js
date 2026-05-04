@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json()); 
 
 // Servir archivos estáticos del frontend compilado
-const frontendPath = path.join(__dirname, '../../Frontend/dist/TodoListAngular');
+const frontendPath = path.join(__dirname, '../../Frontend/dist/TodoListAngular/browser');
 app.use(express.static(frontendPath));
 
 // API routes
@@ -26,7 +26,7 @@ app.use('/users', userRouter)
 app.use('/tasks', tasksRouter)
 
 // Servir el frontend para rutas no encontradas (SPA)
-app.get('*', (req, res) => {
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
