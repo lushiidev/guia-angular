@@ -3,11 +3,17 @@
  * Estas pruebas simulan peticiones HTTP y verifican las respuestas
  */
 
-import * as tasksController from './tasksController.js';
-import * as tasksService from '../services/tasksService.js';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 
-// Mockeamos el servicio de tareas
-jest.mock('../services/tasksService.js');
+await jest.unstable_mockModule('../services/tasksService.js', () => ({
+  getTasks: jest.fn(),
+  postCrearTasks: jest.fn(),
+  actualizarTarea: jest.fn(),
+  eliminarTarea: jest.fn()
+}));
+
+const tasksController = await import('./tasksController.js');
+const tasksService = await import('../services/tasksService.js');
 
 describe('Tasks Controller - Pruebas Unitarias', () => {
   
@@ -78,7 +84,7 @@ describe('Tasks Controller - Pruebas Unitarias', () => {
         req.usuarioId,
         'Nueva tarea',
         'Descripción',
-        false
+        undefined
       );
       expect(res.json).toHaveBeenCalledWith(tareaCreada);
     });
